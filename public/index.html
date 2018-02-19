@@ -41,11 +41,32 @@
     <div id="modal1" class="modal">
       <div class="modal-content">
         <!-- Cambiar los valores con datos desde el DOM -->
-        <h4>Modal Header</h4>
-        <p>A bunch of text</p>
+        <div class="row">
+            <form class="col s12">
+              <div class="row">
+                <div class="input-field col s12">
+                  <!-- cambiar dinámicamente -->
+                  <input id="email" type="email" class="validate">
+                  <label for="email" data-error="wrong" data-success="right">Email</label>
+                </div>
+              </div>
+            </form>
+          </div>
+          <!-- message -->
+        <div class="row">
+          <form class="col s12">
+            <div class="row">
+              <div class="input-field col s6">
+                <!-- cambiar dinámicamente -->
+                <textarea id="icon_prefix2" class="materialize-textarea"></textarea>
+                <label for="icon_prefix2">First Name</label>
+              </div>
+            </div>
+          </form>
+        </div>
       </div>
       <div class="modal-footer">
-        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Publicar<i class="material-icons right">send</i></a>
       </div>
     </div>
         
