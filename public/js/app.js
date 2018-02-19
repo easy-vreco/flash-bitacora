@@ -9,12 +9,18 @@ $(document).ready(() => {
   const $imageButton = $('#file-button');
   const $calendarButton = $('#calendar-button');
   const $videoButton = $('#video-button');
+  let $placeMessage = $('#title-container .input-field');
+  // let $titleMessage =$('')
   // Variables que referencian a los elementos del modal
   const $modalContent = $('#modal-body');
 
   $buttonContainer.on('click', '.modal-trigger', (event) => {
     if (event.currentTarget === $postButton[0]) {
+      $('<input placeholder="Placeholder" id="first_name" type="text" class="validate">').appendTo($placeMessage);
+      $('<label class="active" for="first_name" id="title-label"></label>').appendTo($placeMessage);
+      $('#title-container .input-field').find('#title-label').text('Título');
       console.log('Este botón te permite postear mensajes');
+      
     } else if (event.currentTarget === $imageButton[0]) {
       console.log('Este botón te permite postear imágenes');
       $modalContent.find('#title-container .input-field').append('<input placeholder="Placeholder" id="first_name" type="text" class="validate">');
