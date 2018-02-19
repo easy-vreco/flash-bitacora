@@ -39,16 +39,28 @@
     <!-- Modales de los botones FAB -->
     <!-- Modal Structure -->
     <div id="modal1" class="modal">
-      <div class="modal-content">
+      <div class="modal-content" id="modal-body">
         <!-- Cambiar los valores con datos desde el DOM -->
-        <h4>Modal Header</h4>
-        <p>A bunch of text</p>
+        <div class="row">
+          <form class="col s12">
+            <!--First input-->
+            <div class="row" id="title-container">
+                <div class="input-field col s12">
+                  <!-- Título -->
+                </div>
+            </div> 
+            <div class="row" id="add-post-container">
+              <div class="file-field input-field col s12">
+                <!-- Contenido -->
+              </div>
+            </div>
+          </form>
+        </div>      
       </div>
       <div class="modal-footer">
-        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" id="close-button">Agree</a>
       </div>
-    </div>
-        
+    </div>    
     <script src="vendors/jquery/jquery-3.2.1.min.js"></script>
     <script src="vendors/materialize/js/materialize.min.js"></script>
     <script type="text/javascript" src="js/app.js"></script>
