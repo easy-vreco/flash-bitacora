@@ -20,7 +20,6 @@ $(document).ready(() => {
       $('<label class="active" for="first_name" id="title-label"></label>').appendTo($placeMessage);
       $('#title-container .input-field').find('#title-label').text('Título');
       console.log('Este botón te permite postear mensajes');
-      
     } else if (event.currentTarget === $imageButton[0]) {
       console.log('Este botón te permite postear imágenes');
       $modalContent.find('#title-container .input-field').append('<input placeholder="Placeholder" id="first_name" type="text" class="validate">');
