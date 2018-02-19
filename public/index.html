@@ -39,37 +39,28 @@
     <!-- Modales de los botones FAB -->
     <!-- Modal Structure -->
     <div id="modal1" class="modal">
-      <div class="modal-content">
+      <div class="modal-content" id="modal-body">
         <!-- Cambiar los valores con datos desde el DOM -->
         <div class="row">
-            <form class="col s12">
-              <div class="row">
-                <div class="input-field col s12">
-                  <!-- cambiar dinámicamente -->
-                  <input id="email" type="email" class="validate">
-                  <label for="email" data-error="wrong" data-success="right">Email</label>
-                </div>
-              </div>
-            </form>
-          </div>
-          <!-- message -->
-        <div class="row">
           <form class="col s12">
-            <div class="row">
-              <div class="input-field col s6">
-                <!-- cambiar dinámicamente -->
-                <textarea id="icon_prefix2" class="materialize-textarea"></textarea>
-                <label for="icon_prefix2">First Name</label>
+            <!--First input-->
+            <div class="row" id="title-container">
+                <div class="input-field col s12">
+                  <!-- Título -->
+                </div>
+            </div> 
+            <div class="row" id="add-post-container">
+              <div class="file-field input-field col s12">
+                <!-- Contenido -->
               </div>
             </div>
           </form>
-        </div>
+        </div>      
       </div>
       <div class="modal-footer">
-        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Publicar<i class="material-icons right">send</i></a>
+        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" id="close-button">Publicar <i class="material-icons right">send</i></a>
       </div>
-    </div>
-        
+    </div>    
     <script src="vendors/jquery/jquery-3.2.1.min.js"></script>
     <script src="vendors/materialize/js/materialize.min.js"></script>
     <script type="text/javascript" src="js/app.js"></script>
