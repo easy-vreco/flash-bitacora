@@ -17,7 +17,9 @@ $(document).ready(() => {
       console.log('Este botón te permite postear mensajes');
     } else if (event.currentTarget === $imageButton[0]) {
       console.log('Este botón te permite postear imágenes');
-      $modalContent.find('');
+      $modalContent.find('#title-container .input-field').append('<input placeholder="Placeholder" id="first_name" type="text" class="validate">');
+      $modalContent.find('#title-container .input-field').append('<label class="active" for="first_name" id="title-label"></label>');
+      $('#title-container .input-field').find('#title-label').text('Título');
       //
     } else if (event.currentTarget === $calendarButton[0]) {
       console.log('Este botón te permite postear la fecha actual y tu ubicación');
