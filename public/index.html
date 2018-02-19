@@ -26,15 +26,16 @@
         <a class="btn-floating btn-large red">
           <i class="large material-icons">mode_edit</i>
         </a>
-        <ul>
-          <li><a class="btn-floating red modal-trigger modal-trigger" href="#modal1"><i class="material-icons">message</i></a></li>
-          <li><a class="btn-floating yellow darken-1 modal-trigger" href="#modal1"><i class="material-icons">photo</i></a></li>
-          <li><a class="btn-floating green modal-trigger" href="#modal1"><i class="material-icons">insert_invitation</i></a></li>
-          <li><a class="btn-floating blue modal-trigger" href="#modal1"><i class="material-icons">video_library</i></a></li>
+        <ul id="button-container">
+          <li><a class="btn-floating red modal-trigger modal-trigger" href="#modal1" id="post-button"><i class="material-icons">message</i></a></li>
+          <li><a class="btn-floating yellow darken-1 modal-trigger" href="#modal1" id="file-button"><i class="material-icons">photo</i></a></li>
+          <li><a class="btn-floating green modal-trigger" href="#modal1" id="calendar-button"><i class="material-icons">insert_invitation</i></a></li>
+          <li><a class="btn-floating blue modal-trigger" href="#modal1" id="video-button"><i class="material-icons">video_library</i></a></li>
         </ul>
       </div>
     </section>
-
+    <!-- Sección de los posts -->
+    <section class="container" id="posts-container"></section>
     <!-- Modales de los botones FAB -->
     <!-- Modal Structure -->
     <div id="modal1" class="modal">
