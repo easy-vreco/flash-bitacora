@@ -4,9 +4,22 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.2"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/easy-vreco/flash-bitacora.git"
+  },
+  "bugs": {
+    "url": "https://github.com/easy-vreco/flash-bitacora/issues"
+  },
+  "homepage": "https://github.com/easy-vreco/flash-bitacora#readme"
 }
