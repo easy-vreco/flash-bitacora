@@ -295,16 +295,9 @@ $(document).ready(() => {
                 // Render thumbnail.
                 debugger;
                 var span = document.createElement('span');
-<<<<<<< HEAD
-                
-                span.innerHTML = ['<video class="thumb" controls><source src="', e.target.result,
-                                  '" title="', escape(theFile.name), '"/></video>'].join('');
-                document.getElementById('list-video').insertBefore(span, null);
-=======
                 span.innerHTML = ['<source class="thumb" src="', e.target.result,
                   '" title="', escape(theFile.name), '"/>'].join('');
                 document.getElementById('list').insertBefore(span, null);
->>>>>>> fdd4dd1ae6446de8ec43095aa084bf2398a7a4e4
               };
             })(f);
       
