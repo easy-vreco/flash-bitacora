@@ -37,3 +37,9 @@ nav .brand-logo {
     font-size: 1.3em;
   }
 }
+
+.thumb {
+  height: 10em;
+  border: 1px solid #000;
+  margin: 5em 2em 0 0;
+}
