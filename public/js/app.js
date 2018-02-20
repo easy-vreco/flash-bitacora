@@ -279,9 +279,9 @@ $(document).ready(() => {
         }); 
       });
       //
-      $modalContent.find('#add-post-container .input-field').append('<div class="btn"><span>VIDEO O AUDIO</span><input type="file" id="files" name="files[]" multiple><output id="list"></output></div>');
+      $modalContent.find('#add-post-container .input-field').append('<div class="btn"><span>VIDEO O AUDIO</span><input type="file" id="files" name="files[]" multiple><output id="list-video"></output></div>');
       $modalContent.find('#add-post-container .input-field').append('<div class="file-path-wrapper"><input class="file-path validate" type="text"></div>');
-      $modalContent.find('#add-post-container .input-field').append('<video controls><source src=""></video>');
+      $modalContent.find('#add-post-container .input-field').append('<video controls><source src="" type="video/mp4/mp3"></video>');
     
       if (window.File && window.FileReader && window.FileList && window.Blob) {
         // Great success! All the File APIs are supported.
@@ -302,6 +302,7 @@ $(document).ready(() => {
             reader.onload = (function(theFile) {
               return function(e) {
                 // Render thumbnail.
+                debugger;
                 var span = document.createElement('span');
                 span.innerHTML = ['<source class="thumb" src="', e.target.result,
                   '" title="', escape(theFile.name), '"/>'].join('');
