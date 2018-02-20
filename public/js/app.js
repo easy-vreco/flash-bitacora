@@ -28,7 +28,7 @@ $(document).ready(() => {
       console.log('Este botón te permite postear mensajes');
       $modalContent.find('#add-post-container .input-field').append('<textarea id="textarea1" class="materialize-textarea"></textarea>');
       $modalContent.find('#add-post-container .input-field').append('<label for="textarea1">Textarea</label>');
-      //
+      // Al dar click al input de título
       $placeMessage.one('click', () => {
         $placeMessage.append('<span class="counter-span"></span>');
         $('.counter-span').text('0' + '/' + MAXCHARACTERS);
@@ -37,29 +37,22 @@ $(document).ready(() => {
         $('#first_name').on('input', function(event) {
           console.log(event.target);
           // Comprobando si los caracteres ingresados son letras
-          if ($('#first_name').val().trim().length) {
-            let $str = $('#first_name').val().trim(); 
-            const PATTERNLETTERS = /[A-z]/g; 
-            let $result = $str.match(PATTERNLETTERS);
-            console.log($result);
-            let $word = $result.join('');
-            if ($word) {
-              let $total = MAXCHARACTERS - (MAXCHARACTERS - $word.length); 
-              console.log($total);
-              $('.counter-span').text($total + '/' + MAXCHARACTERS);
-              if ($total > MAXCHARACTERS) {
-                $('#first_name').addClass('invalid');
-              } else {
-                $('#first_name').removeClass('invalid');
-              } 
-              const PATTERNNUMBERS = /[^0-9]/;
-              let $verify = PATTERNNUMBERS.test($word);
-              if ($verify && $textArea.val().length !== 0) {
-                $publishButton.removeAttr('disabled');
-              } else {
-                $publishButton.attr('disabled', true);
-              } 
-            }
+          let $word = $('#first_name').val(); 
+          console.log($word);
+          if ($word) {
+            let $total = MAXCHARACTERS - (MAXCHARACTERS - $word.length); 
+            console.log($total);
+            $('.counter-span').text($total + '/' + MAXCHARACTERS);
+            if ($total > MAXCHARACTERS) {
+              $('#first_name').addClass('invalid');
+            } else {
+              $('#first_name').removeClass('invalid');
+            } 
+            if ($word && $textArea.val().length !== 0) {
+              $publishButton.removeAttr('disabled');
+            } else {
+              $publishButton.attr('disabled', true);
+            } 
           } else {
             $('.counter-span').text('0' + '/' + MAXCHARACTERS);
             $('#first_name').addClass('invalid');
@@ -67,10 +60,10 @@ $(document).ready(() => {
           }
         }); 
 
-        $textArea.on('input', function() {
-          const PATTERNNUMBERS = /[^0-9]/;
-          let $verify = PATTERNNUMBERS.test($('#first_name').val());
-          if ($verify && $textArea.val().length !== 0) {
+        $textArea.on('input', function() {   
+          debugger;    
+          let $str = $('#first_name').val();
+          if ($str.length !== 0 && $textArea.val().length !== 0) {
             $publishButton.removeAttr('disabled');
           } else {
             $publishButton.attr('disabled', true);
@@ -96,37 +89,31 @@ $(document).ready(() => {
       $modalContent.find($placeMessage).append('<input placeholder="Placeholder" id="first_name" type="text" class="validate">');
       $modalContent.find($placeMessage).append('<label class="active" for="first_name" id="title-label"></label>');
       $placeMessage.find('#title-label').text('Título');
+      // Al dar click al input de título
       $placeMessage.one('click', () => {
         $placeMessage.append('<span class="counter-span"></span>');
         $('.counter-span').text('0' + '/' + MAXCHARACTERS);
+        let $textArea = $('.input-field textarea');
         // Contando el número de caracteres del input
         $('#first_name').on('input', function(event) {
           console.log(event.target);
-          if ($('#first_name').val().trim().length) {
-            let $str = $('#first_name').val().trim(); 
-            const PATTERNLETTERS = /[A-z]/g; 
-            let $result = $str.match(PATTERNLETTERS);
-            console.log($result);
-            let $word = $result.join('');
-            if ($word) {
-              let $total = MAXCHARACTERS - (MAXCHARACTERS - $word.length); 
-              console.log($total);
-              $('.counter-span').text($total + '/' + MAXCHARACTERS);
-              if ($total > MAXCHARACTERS) {
-                $('#first_name').addClass('invalid');
-              } else {
-                $('#first_name').removeClass('invalid');
-              } 
+          // Comprobando si los caracteres ingresados son letras
+          let $word = $('#first_name').val(); 
+          console.log($word);
+          if ($word) {
+            let $total = MAXCHARACTERS - (MAXCHARACTERS - $word.length); 
+            console.log($total);
+            $('.counter-span').text($total + '/' + MAXCHARACTERS);
+            if ($total > MAXCHARACTERS) {
+              $('#first_name').addClass('invalid');
+            } else {
+              $('#first_name').removeClass('invalid');
             } 
-
-            let $inputContent = $('#first_name').val();
-            const PATTERNNUMBERS = /[^0-9]/;
-            let $verify = PATTERNNUMBERS.test($inputContent);
-            if ($verify && $('#files').val()) {
+            if ($word && $('#files').val()) {
               $publishButton.removeAttr('disabled');
             } else {
               $publishButton.attr('disabled', true);
-            }      
+            }  
           } else {
             $('.counter-span').text('0' + '/' + MAXCHARACTERS);
             $('#first_name').addClass('invalid');
@@ -134,7 +121,7 @@ $(document).ready(() => {
           }
         }); 
       });
-      //
+
       $modalContent.find('#add-post-container .input-field').append('<div class="btn" id="button"><span id="description-span">IMAGEN</span><input type="file" id="files" name="files[]" multiple><output id="list"></output></div>');
       $modalContent.find('#add-post-container .input-field').append('<div class="file-path-wrapper"><input class="file-path validate" type="text"></div>');
       $modalContent.find('#add-post-container .input-field').append('<div class="image-preview"><img src="" class="responsive-image"</div>');
@@ -163,9 +150,7 @@ $(document).ready(() => {
                 $('#add-post-container .input-field').find('#button').addClass('button-image');
                 $('#add-post-container .input-field').find('#description-span').addClass('image-span');
                 let $inputContent = $('#first_name').val();
-                const PATTERNNUMBERS = /[^0-9]/;
-                let $verify = PATTERNNUMBERS.test($inputContent);
-                if ($verify && $('#files').val()) {
+                if ($inputContent && $('#files').val()) {
                   $publishButton.removeAttr('disabled');
                 } else {
                   $publishButton.attr('disabled', true);
@@ -209,28 +194,27 @@ $(document).ready(() => {
       $modalContent.find($placeMessage).append('<input placeholder="Placeholder" id="first_name" type="text" class="validate">');
       $modalContent.find($placeMessage).append('<label class="active" for="first_name" id="title-label"></label>');
       $placeMessage.find('#title-label').text('Título de tu evento');
+      // Al dar click al input de título
       $placeMessage.one('click', () => {
         $placeMessage.append('<span class="counter-span"></span>');
         $('.counter-span').text('0' + '/' + MAXCHARACTERS);
+        let $textArea = $('.input-field textarea');
         // Contando el número de caracteres del input
         $('#first_name').on('input', function(event) {
           console.log(event.target);
-          if ($('#first_name').val().trim().length) {
-            let $str = $('#first_name').val().trim(); 
-            const PATTERNLETTERS = /[A-z]/g; 
-            let $result = $str.match(PATTERNLETTERS);
-            console.log($result);
-            let $word = $result.join('');
-            if ($word) {
-              let $total = MAXCHARACTERS - (MAXCHARACTERS - $word.length); 
-              console.log($total);
-              $('.counter-span').text($total + '/' + MAXCHARACTERS);
-              if ($total > MAXCHARACTERS) {
-                $('#first_name').addClass('invalid');
-              } else {
-                $('#first_name').removeClass('invalid');
-              } 
-            }
+          // Comprobando si los caracteres ingresados son letras
+          let $word = $('#first_name').val(); 
+          console.log($word);
+          if ($word) {
+            let $total = MAXCHARACTERS - (MAXCHARACTERS - $word.length); 
+            console.log($total);
+            $('.counter-span').text($total + '/' + MAXCHARACTERS);
+            if ($total > MAXCHARACTERS) {
+              $('#first_name').addClass('invalid');
+            } else {
+              $('#first_name').removeClass('invalid');
+            } 
+            // verificando
           } else {
             $('.counter-span').text('0' + '/' + MAXCHARACTERS);
             $('#first_name').addClass('invalid');
