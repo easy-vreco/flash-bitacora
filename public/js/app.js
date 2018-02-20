@@ -184,12 +184,21 @@ $(document).ready(() => {
       // Creando contenedor con la imagen y su título
 
       $publishButton.one('click', function() {
+        debugger;
         $postsContainer.find('#posts-container-row').append('<div class="picture-container"></div>');
-        $('.picture-container').append(`<h2>${$('#first_name').val()}</h2>`);
-        let $image = $('#modal1').find('output');
-        $('#posts-container-row').find('.picture-container').append($image);
-        $image.find('img').removeClass('thumb');
-        $image.find('img').addClass('responsive-img picture');
+        let $imageContainers = $('.picture-container');
+        $imageContainers.each(function(el) {
+          if (el === ($imageContainers.length - 1)) {
+            debugger;
+            $('.picture-container').eq(el).append(`<h2>${$('#first_name').val()}</h2>`);
+            let $image = $('#modal1').find('.thumb');
+            let $imageDiv = $('<div></div>').append($image);
+            $imageDiv.addClass('image-div');
+            $('.picture-container').eq(el).append($imageDiv);
+            $image.removeClass('thumb');
+            $image.addClass('responsive-img picture');
+          }
+        });
       });
       // Modal para el botón que publica la fecha y ubicación del usuario.
     } else if (event.currentTarget === $calendarButton[0]) {
@@ -230,7 +239,7 @@ $(document).ready(() => {
         }); 
       });
       //
-      $modalContent.find('#add-post-container .input-field').append('<input placeholder="En qué fecha se realizó el evento?" id="first_name" type="text" class="validate">');
+      $modalContent.find('#add-post-container .input-field').append('<input placeholder="En qué fecha se realizó el evento?" id="first_name" type="date"  class="validate" value="2017-02-21" step="1 min="2017-09-25" max="2018-12-31" autocomplete="on">');
       // Modal para el botón que publica vídeos y audios.
     } else if (event.currentTarget === $videoButton[0]) {
       console.log('Este botón te permite postear audios y vídeos');
