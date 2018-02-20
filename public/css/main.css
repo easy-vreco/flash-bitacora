@@ -8,10 +8,17 @@ nav .brand-logo {
   font-size: 1.1em;
 }
 
+/* Estilos al contador del modal */
 .counter-span {
   color: #3949ab; 
   font-weight: 700;
   float: right;
+}
+
+/* Estilos al contenedor de los posts */
+
+.post-div {
+  border: 2px solid black;
 }
 
 @media(min-width: 601px) {

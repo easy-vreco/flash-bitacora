@@ -60,9 +60,9 @@ $(document).ready(() => {
                 if ($verify && $verify2 && $textArea.val().length !== 0) {
                   $publishButton.removeAttr('disabled');
                   $publishButton.one('click', () => {
-                    $postsContainer.find('#posts-container-row').append('<div></div>');
-                    $('#posts-container-row').append(`<h2>${$word}</h2>`);
-                    $('#posts-container-row').append(`<p>${$textAreaContent}</p>`);
+                    $postsContainer.find('#posts-container-row').append('<div class="post-div"></div>');
+                    $('#posts-container-row').find('.post-div').append(`<h2>${$word}</h2>`);
+                    $('#posts-container-row').find('.post-div').append(`<p>${$textAreaContent}</p>`);
                   });
                 } else {
                   $publishButton.attr('disabled', true);
