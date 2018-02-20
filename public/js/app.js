@@ -169,12 +169,10 @@ $(document).ready(() => {
       // Creando contenedor con la imagen y su título
 
       $publishButton.one('click', function() {
-        debugger;
         $postsContainer.find('#posts-container-row').append('<div class="picture-container"></div>');
         let $imageContainers = $('.picture-container');
         $imageContainers.each(function(el) {
           if (el === ($imageContainers.length - 1)) {
-            debugger;
             $('.picture-container').eq(el).append(`<h2>${$('#first_name').val()}</h2>`);
             let $image = $('#modal1').find('.thumb');
             let $imageDiv = $('<div></div>').append($image);
@@ -194,6 +192,7 @@ $(document).ready(() => {
       $modalContent.find($placeMessage).append('<input placeholder="Placeholder" id="first_name" type="text" class="validate">');
       $modalContent.find($placeMessage).append('<label class="active" for="first_name" id="title-label"></label>');
       $placeMessage.find('#title-label').text('Título de tu evento');
+      $modalContent.find('#add-post-container .input-field').append('<input placeholder="Placeholder" id="second_name" type="text" class="validate">');
       // Al dar click al input de título
       $placeMessage.one('click', () => {
         $placeMessage.append('<span class="counter-span"></span>');
@@ -214,7 +213,12 @@ $(document).ready(() => {
             } else {
               $('#first_name').removeClass('invalid');
             } 
-            // verificando
+            // Verificando
+            if ($word && $('#second_name').val()) {
+              $publishButton.removeAttr('disabled');
+            } else {
+              $publishButton.attr('disabled', true);
+            }  
           } else {
             $('.counter-span').text('0' + '/' + MAXCHARACTERS);
             $('#first_name').addClass('invalid');
@@ -223,8 +227,30 @@ $(document).ready(() => {
         }); 
       });
       //
-      $modalContent.find('#add-post-container .input-field').append('<input placeholder="En qué fecha se realizó el evento?" id="first_name" type="date"  class="validate" value="2017-02-21" step="1 min="2017-09-25" max="2018-12-31" autocomplete="on">');
+      $('#second_name').on('click', () => {
+        $modalContent.find('#add-post-container .input-field').empty();
+        $modalContent.find('#add-post-container .input-field').append('<input placeholder="En qué fecha se realizó el evento?" id="second_name" type="date"  class="validate" value="2017-02-21" step="1 min="2017-09-25" max="2018-12-31" autocomplete="on">');
+        // Verificando
+        if ($('#first_name').val() && $('#second_name').val()) {
+          $publishButton.removeAttr('disabled');
+        } else {
+          $publishButton.attr('disabled', true);
+        }  
+      });
+
+      $publishButton.one('click', function() {
+        debugger;
+        $postsContainer.find('#posts-container-row').append('<div class="date-container"></div>');
+        let $dateContainers = $('.date-container');
+        $dateContainers.each(function(el) {
+          if (el === ($dateContainers.length - 1)) {
+            $('.date-container').eq(el).append(`<h2>${$('#first_name').val()}</h2>`);
+            $('.date-container').eq(el).append(`<p>${$('#second_name').val()}</p>`);
+          }
+        });
+      });
       // Modal para el botón que publica vídeos y audios.
+      // '<input placeholder="En qué fecha se realizó el evento?" id="first_name" type="date"  class="validate" value="2017-02-21" step="1 min="2017-09-25" max="2018-12-31" autocomplete="on">'
     } else if (event.currentTarget === $videoButton[0]) {
       console.log('Este botón te permite postear audios y vídeos');
       // 
