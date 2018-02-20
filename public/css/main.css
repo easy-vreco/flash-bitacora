@@ -19,6 +19,7 @@ nav .brand-logo {
 
 .post-div {
   border: 2px solid black;
+  margin-top: 2em;
 }
 
 @media(min-width: 601px) {

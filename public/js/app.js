@@ -59,11 +59,6 @@ $(document).ready(() => {
                 let $verify2 = PATTERNNUMBERS.test($textAreaContent);
                 if ($verify && $verify2 && $textArea.val().length !== 0) {
                   $publishButton.removeAttr('disabled');
-                  $publishButton.one('click', () => {
-                    $postsContainer.find('#posts-container-row').append('<div class="post-div"></div>');
-                    $('#posts-container-row').find('.post-div').append(`<h2>${$word}</h2>`);
-                    $('#posts-container-row').find('.post-div').append(`<p>${$textAreaContent}</p>`);
-                  });
                 } else {
                   $publishButton.attr('disabled', true);
                 }
@@ -73,6 +68,17 @@ $(document).ready(() => {
             $('.counter-span').text('0' + '/' + MAXCHARACTERS);
           }
         }); 
+        $publishButton.one('click', () => {
+          // $postsContainer.find('#posts-container-row').empty();
+          $postsContainer.find('#posts-container-row').append('<div class="post-div"></div>');
+          let $containers = $('.post-div');
+          $containers.each(function(el) {
+            if (el === ($containers.length - 1)) {
+              $('.post-div').eq(el).append(`<h2>${$('#first_name').val()}</h2>`);
+              $('.post-div').eq(el).append(`<p>${$('.input-field textarea').val()}</p>`);
+            }
+          });
+        });
       });
       // Modal para el botón que publica imágenes
     } else if (event.currentTarget === $imageButton[0]) {
