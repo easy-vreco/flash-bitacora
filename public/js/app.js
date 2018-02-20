@@ -2,18 +2,19 @@ $(document).ready(() => {
   $('#modal1').modal();
   // Variable que referencia al contendor de los posts
   const $postsContainer = $('#posts-container');
-  $postsContainer.append('<row class="col s12 m12 l12"/>');
+  $postsContainer.append('<row class="col s12 m12 l12" id="posts-container-row"></row>');
   // Variables que referencian a los botones y su contenedor
   const $buttonContainer = $('#button-container');
   const $postButton = $('#post-button');
   const $imageButton = $('#file-button');
   const $calendarButton = $('#calendar-button');
   const $videoButton = $('#video-button');
-  const $placeMessage = $('#title-container .input-field');
+  const $placeMessage = $('#title-container .input-field'); 
   const MAXCHARACTERS = 10;
  
   // Variables que referencian a los elementos del modal
   const $modalContent = $('#modal-body');
+  const $publishButton = $('#close-button');
 
   $buttonContainer.on('click', '.modal-trigger', (event) => {
     // Modal para el botón que publica posts
@@ -23,11 +24,17 @@ $(document).ready(() => {
       $('<input placeholder="Placeholder" id="first_name" type="text" class="validate">').appendTo($placeMessage);
       $('<label class="active" for="first_name" id="title-label"></label>').appendTo($placeMessage);
       $placeMessage.find('#title-label').text('Título');
+      //
+      console.log('Este botón te permite postear mensajes');
+      $modalContent.find('#add-post-container .input-field').append('<textarea id="textarea1" class="materialize-textarea"></textarea>');
+      $modalContent.find('#add-post-container .input-field').append('<label for="textarea1">Textarea</label>');
+      //
       $placeMessage.one('click', () => {
         $placeMessage.append('<span class="counter-span"></span>');
         $('.counter-span').text('0' + '/' + MAXCHARACTERS);
         // Contando el número de caracteres del input
         $('#first_name').on('input', function(event) {
+          // debugger;
           console.log(event.target);
           if ($('#first_name').val().trim().length) {
             let $str = $('#first_name').val().trim(); 
@@ -44,16 +51,29 @@ $(document).ready(() => {
               } else {
                 $('#first_name').removeClass('invalid');
               } 
+              let $textArea = $('.input-field textarea');
+              $textArea.on('input', function() {
+                let $textAreaContent = $textArea.val();
+                const PATTERNNUMBERS = /[^0-9]/;
+                let $verify = PATTERNNUMBERS.test($word);
+                let $verify2 = PATTERNNUMBERS.test($textAreaContent);
+                if ($verify && $verify2 && $textArea.val().length !== 0) {
+                  $publishButton.removeAttr('disabled');
+                  $publishButton.one('click', () => {
+                    $postsContainer.find('#posts-container-row').append('<div></div>');
+                    $('#posts-container-row').append(`<h2>${$word}</h2>`);
+                    $('#posts-container-row').append(`<p>${$textAreaContent}</p>`);
+                  });
+                } else {
+                  $publishButton.attr('disabled', true);
+                }
+              });  
             }
           } else {
             $('.counter-span').text('0' + '/' + MAXCHARACTERS);
           }
         }); 
       });
-      //
-      console.log('Este botón te permite postear mensajes');
-      $modalContent.find('#add-post-container .input-field').append('<textarea id="textarea1" class="materialize-textarea"></textarea>');
-      $modalContent.find('#add-post-container .input-field').append('<label for="textarea1">Textarea</label>');
       // Modal para el botón que publica imágenes
     } else if (event.currentTarget === $imageButton[0]) {
       $modalContent.find($placeMessage).empty();
