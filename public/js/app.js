@@ -32,10 +32,11 @@ $(document).ready(() => {
       $placeMessage.one('click', () => {
         $placeMessage.append('<span class="counter-span"></span>');
         $('.counter-span').text('0' + '/' + MAXCHARACTERS);
+        let $textArea = $('.input-field textarea');
         // Contando el número de caracteres del input
         $('#first_name').on('input', function(event) {
-          // debugger;
           console.log(event.target);
+          // Comprobando si los caracteres ingresados son letras
           if ($('#first_name').val().trim().length) {
             let $str = $('#first_name').val().trim(); 
             const PATTERNLETTERS = /[A-z]/g; 
@@ -51,25 +52,32 @@ $(document).ready(() => {
               } else {
                 $('#first_name').removeClass('invalid');
               } 
-              let $textArea = $('.input-field textarea');
-              $textArea.on('input', function() {
-                let $textAreaContent = $textArea.val();
-                const PATTERNNUMBERS = /[^0-9]/;
-                let $verify = PATTERNNUMBERS.test($word);
-                let $verify2 = PATTERNNUMBERS.test($textAreaContent);
-                if ($verify && $verify2 && $textArea.val().length !== 0) {
-                  $publishButton.removeAttr('disabled');
-                } else {
-                  $publishButton.attr('disabled', true);
-                }
-              });  
+              const PATTERNNUMBERS = /[^0-9]/;
+              let $verify = PATTERNNUMBERS.test($word);
+              if ($verify && $textArea.val().length !== 0) {
+                $publishButton.removeAttr('disabled');
+              } else {
+                $publishButton.attr('disabled', true);
+              } 
             }
           } else {
             $('.counter-span').text('0' + '/' + MAXCHARACTERS);
+            $('#first_name').addClass('invalid');
+            $publishButton.attr('disabled', true);
           }
         }); 
+
+        $textArea.on('input', function() {
+          const PATTERNNUMBERS = /[^0-9]/;
+          let $verify = PATTERNNUMBERS.test($('#first_name').val());
+          if ($verify && $textArea.val().length !== 0) {
+            $publishButton.removeAttr('disabled');
+          } else {
+            $publishButton.attr('disabled', true);
+          } 
+        });
+        // Creando contenedor del post
         $publishButton.one('click', () => {
-          // $postsContainer.find('#posts-container-row').empty();
           $postsContainer.find('#posts-container-row').append('<div class="post-div"></div>');
           let $containers = $('.post-div');
           $containers.each(function(el) {
@@ -109,14 +117,25 @@ $(document).ready(() => {
               } else {
                 $('#first_name').removeClass('invalid');
               } 
-            }
+            } 
+
+            let $inputContent = $('#first_name').val();
+            const PATTERNNUMBERS = /[^0-9]/;
+            let $verify = PATTERNNUMBERS.test($inputContent);
+            if ($verify && $('#files').val()) {
+              $publishButton.removeAttr('disabled');
+            } else {
+              $publishButton.attr('disabled', true);
+            }      
           } else {
             $('.counter-span').text('0' + '/' + MAXCHARACTERS);
+            $('#first_name').addClass('invalid');
+            $publishButton.attr('disabled', true);
           }
         }); 
       });
       //
-      $modalContent.find('#add-post-container .input-field').append('<div class="btn"><span>IMAGEN</span><input type="file" id="files" name="files[]" multiple><output id="list"></output></div>');
+      $modalContent.find('#add-post-container .input-field').append('<div class="btn" id="button"><span id="description-span">IMAGEN</span><input type="file" id="files" name="files[]" multiple><output id="list"></output></div>');
       $modalContent.find('#add-post-container .input-field').append('<div class="file-path-wrapper"><input class="file-path validate" type="text"></div>');
       $modalContent.find('#add-post-container .input-field').append('<div class="image-preview"><img src="" class="responsive-image height-image"</div>');
       
@@ -127,7 +146,6 @@ $(document).ready(() => {
       
           // Loop through the FileList and render image files as thumbnails.
           for (var i = 0, f; f = files[i]; i++) {
-      
             // Only process image files.
             if (!f.type.match('image.*')) {
               continue;
@@ -137,12 +155,22 @@ $(document).ready(() => {
       
             // Closure to capture the file information.
             reader.onload = (function(theFile) {
-              return function(e) {
+              return function(event) {
                 // Render thumbnail.
                 var span = document.createElement('span');
-                span.innerHTML = ['<img class="thumb" src="', e.target.result,
-                                  '" title="', escape(theFile.name), '"/>'].join('');
+                span.innerHTML = ['<img class="thumb" src="', event.target.result,
+                  '" title="', escape(theFile.name), '"/>'].join('');
                 document.getElementById('list').insertBefore(span, null);
+                $('#add-post-container .input-field').find('#button').addClass('button-image');
+                $('#add-post-container .input-field').find('#description-span').addClass('image-span');
+                let $inputContent = $('#first_name').val();
+                const PATTERNNUMBERS = /[^0-9]/;
+                let $verify = PATTERNNUMBERS.test($inputContent);
+                if ($verify && $('#files').val()) {
+                  $publishButton.removeAttr('disabled');
+                } else {
+                  $publishButton.attr('disabled', true);
+                }          
               };
             })(f);
       
@@ -152,11 +180,20 @@ $(document).ready(() => {
         }
       
         document.getElementById('files').addEventListener('change', handleFileSelect, false);
-
       } else {
         alert('The File APIs are not fully supported in this browser.');
       }
+      // Creando contenedor con la imagen y su título
 
+      $publishButton.one('click', function() {
+        debugger;
+        $postsContainer.find('#posts-container-row').append('<div class="picture-container"></div>');
+        $('.picture-container').append(`<h2>${$('#first_name').val()}</h2>`);
+        let $image = $('#modal1').find('output');
+        $('#posts-container-row').find('.picture-container').append($image);
+        $image.find('img').removeClass('thumb');
+        $image.find('img').addClass('responsive-img picture');
+      });
       // Modal para el botón que publica la fecha y ubicación del usuario.
     } else if (event.currentTarget === $calendarButton[0]) {
       console.log('Este botón te permite postear la fecha actual y tu ubicación');
@@ -190,6 +227,8 @@ $(document).ready(() => {
             }
           } else {
             $('.counter-span').text('0' + '/' + MAXCHARACTERS);
+            $('#first_name').addClass('invalid');
+            $publishButton.attr('disabled', true);
           }
         }); 
       });
@@ -228,6 +267,8 @@ $(document).ready(() => {
             }
           } else {
             $('.counter-span').text('0' + '/' + MAXCHARACTERS);
+            $('#first_name').addClass('invalid');
+            $publishButton.attr('disabled', true);
           }
         }); 
       });
