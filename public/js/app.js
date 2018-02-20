@@ -118,28 +118,26 @@ $(document).ready(() => {
       //
       $modalContent.find('#add-post-container .input-field').append('<div class="btn"><span>IMAGEN</span><input type="file" id="files" name="files[]" multiple><output id="list"></output></div>');
       $modalContent.find('#add-post-container .input-field').append('<div class="file-path-wrapper"><input class="file-path validate" type="text"></div>');
-      $modalContent.find('#add-post-container .input-field').append('<div class="image-preview"><img src="" class="responsive-image height-image"</div>');
+      $modalContent.find('#add-post-container .input-field').append('<div class="image-preview"><img src="" class="responsive-image"</div>');
       
       if (window.File && window.FileReader && window.FileList && window.Blob) {
         // Great success! All the File APIs are supported.
         function handleFileSelect(evt) {
-          var files = evt.target.files; // FileList object
+          let files = evt.target.files; // FileList object
       
           // Loop through the FileList and render image files as thumbnails.
-          for (var i = 0, f; f = files[i]; i++) {
-      
+          for (let i = 0, f; f = files[i]; i++) {
             // Only process image files.
             if (!f.type.match('image.*')) {
               continue;
             }
-      
-            var reader = new FileReader();
+            let reader = new FileReader();
       
             // Closure to capture the file information.
             reader.onload = (function(theFile) {
               return function(e) {
                 // Render thumbnail.
-                var span = document.createElement('span');
+                let span = document.createElement('span');
                 span.innerHTML = ['<img class="thumb" src="', e.target.result,
                                   '" title="', escape(theFile.name), '"/>'].join('');
                 document.getElementById('list').insertBefore(span, null);
@@ -150,9 +148,7 @@ $(document).ready(() => {
             reader.readAsDataURL(f);
           }
         }
-      
         document.getElementById('files').addEventListener('change', handleFileSelect, false);
-
       } else {
         alert('The File APIs are not fully supported in this browser.');
       }
@@ -232,8 +228,43 @@ $(document).ready(() => {
         }); 
       });
       //
-      $modalContent.find('#add-post-container .input-field').append('<div class="btn"><span>VIDEO O AUDIO</span><input type="file"></div>');
+      $modalContent.find('#add-post-container .input-field').append('<div class="btn"><span>VIDEO O AUDIO</span><input type="file" id="files" name="files[]" multiple><output id="list"></output></div>');
       $modalContent.find('#add-post-container .input-field').append('<div class="file-path-wrapper"><input class="file-path validate" type="text"></div>');
+      $modalContent.find('#add-post-container .input-field').append('<video controls><source src=""></video>');
+    
+      if (window.File && window.FileReader && window.FileList && window.Blob) {
+        // Great success! All the File APIs are supported.
+        function handleFileSelect(evt) {
+          var files = evt.target.files; // FileList object
+      
+          // Loop through the FileList and render image files as thumbnails.
+          for (var i = 0, f; f = files[i]; i++) {
+      
+            // Only process image files.
+            if (!f.type.match('video.*')) {
+              continue;
+            }
+      
+            var reader = new FileReader();
+      
+            // Closure to capture the file information.
+            reader.onload = (function(theFile) {
+              return function(e) {
+                // Render thumbnail.
+                var span = document.createElement('span');
+                span.innerHTML = ['<source class="thumb" src="', e.target.result,
+                                  '" title="', escape(theFile.name), '"/>'].join('');
+                document.getElementById('list').insertBefore(span, null);
+              };
+            })(f);
+      
+            // Read in the image file as a data URL.
+            reader.readAsDataURL(f);
+          }
+        }
+      
+        document.getElementById('files').addEventListener('change', handleFileSelect, false);
+      }
     } else {
       console.log('Error. Por favor, inténtelo nuevamente.');
     }
