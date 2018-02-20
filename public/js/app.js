@@ -157,7 +157,7 @@ $(document).ready(() => {
               return function(event) {
                 // Render thumbnail.
                 let span = document.createElement('span');
-                span.innerHTML = ['<img class="thumb" src="', e.target.result,
+                span.innerHTML = ['<img class="thumb" src="', event.target.result,
                   '" title="', escape(theFile.name), '"/>'].join('');
                 document.getElementById('list').insertBefore(span, null);
                 $('#add-post-container .input-field').find('#button').addClass('button-image');
@@ -184,7 +184,6 @@ $(document).ready(() => {
       // Creando contenedor con la imagen y su título
 
       $publishButton.one('click', function() {
-        debugger;
         $postsContainer.find('#posts-container-row').append('<div class="picture-container"></div>');
         $('.picture-container').append(`<h2>${$('#first_name').val()}</h2>`);
         let $image = $('#modal1').find('output');
