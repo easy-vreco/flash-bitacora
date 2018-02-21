@@ -75,3 +75,7 @@ nav .brand-logo {
   border: 1px solid #000;
   margin: 3.7em 2em 0 0;
 }
+
+#map {
+  height: 100%;
+}

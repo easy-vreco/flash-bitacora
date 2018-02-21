@@ -230,8 +230,10 @@ $(document).ready(() => {
       $('#second_name').on('click', () => {
         $modalContent.find('#add-post-container .input-field').empty();
         $modalContent.find('#add-post-container .input-field').append('<input placeholder="En qué fecha se realizó el evento?" id="second_name" type="date"  class="validate" value="2017-02-21" step="1 min="2017-09-25" max="2018-12-31" autocomplete="on">');
+        $modalContent.find('#add-post-container .input-field').append('<div ip="map"><div/>')
+        initMap();
         // Verificando
-        if ($('#first_name').val() && $('#second_name').val()) {
+        if ($('#first_name').val() && $('#second_name').val() && initMap()) {
           $publishButton.removeAttr('disabled');
         } else {
           $publishButton.attr('disabled', true);
@@ -331,4 +333,38 @@ $(document).ready(() => {
       console.log('Error. Por favor, inténtelo nuevamente.');
     }
   });
+
+  function initMap() {
+    var map = new google.maps.Map(document.getElementById('map'), {
+      center: {lat: -34.397, lng: 150.644},
+      zoom: 6
+    });
+    var infoWindow = new google.maps.InfoWindow({map: map});
+
+    // Try HTML5 geolocation.
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function(position) {
+        var pos = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        };
+
+        infoWindow.setPosition(pos);
+        infoWindow.setContent('Location found.');
+        map.setCenter(pos);
+      }, function() {
+        handleLocationError(true, infoWindow, map.getCenter());
+      });
+    } else {
+      // Browser doesn't support Geolocation
+      handleLocationError(false, infoWindow, map.getCenter());
+    }
+  }
+
+  function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+    infoWindow.setPosition(pos);
+    infoWindow.setContent(browserHasGeolocation ?
+                          'Error: The Geolocation service failed.' :
+                          'Error: Your browser doesn\'t support geolocation.');
+  }
 });
